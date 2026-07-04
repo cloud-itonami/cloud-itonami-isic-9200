@@ -1,4 +1,4 @@
-{:itonami.blueprint/id "cloud-itonami-9200"
+{:itonami.blueprint/id "cloud-itonami-isic-9200"
  :itonami.blueprint/name "Gambling and betting activities"
  :itonami.blueprint/isic-rev5 "9200"
  :itonami.blueprint/domain :recreation/gambling

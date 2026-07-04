@@ -1,4 +1,4 @@
-# cloud-itonami-9200
+# cloud-itonami-isic-9200
 
 Open Business Blueprint for **ISIC Rev.5 9200**: Gambling and betting activities.
 

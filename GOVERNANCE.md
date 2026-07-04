@@ -1,6 +1,6 @@
 # Governance
 
-`cloud-itonami-9200` is an OSS open-business blueprint for gambling and betting activities -- operating games of chance, betting and lottery services under license.
+`cloud-itonami-isic-9200` is an OSS open-business blueprint for gambling and betting activities -- operating games of chance, betting and lottery services under license.
 Governance covers both the capability layer and the operator model.
 
 ## Maintainers

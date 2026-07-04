@@ -2,7 +2,7 @@
 
 ## Classification
 
-- Repository: `cloud-itonami-9200`
+- Repository: `cloud-itonami-isic-9200`
 - ISIC Rev.5: `9200`
 - Activity: gambling and betting activities -- operating games of chance, betting and lottery services under license
 - Social impact: cultural/recreational access, data sovereignty, transparent audit
