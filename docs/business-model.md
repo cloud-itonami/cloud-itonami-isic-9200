@@ -31,7 +31,14 @@
 ## Trust Controls
 
 - no payout is settled and no wager is accepted from an unverified or self-excluded patron without human sign-off
-- a fabricated age/ID verification forces a hold, not an override
-- every wager/payout path is auditable
+- a fabricated jurisdiction gaming-license citation, incomplete
+  licensing evidence, a claimed payout that doesn't match the actual
+  stake-times-odds calculation, or an unresolved patron compliance flag
+  -- each forces a hold, not an override
+- a wager cannot be accepted or its payout settled twice: a double-
+  acceptance/double-settlement attempt is held off this actor's own
+  wager facts alone, with no upstream comparison needed
+- every intake, assessment, screening, acceptance and settlement path
+  is auditable
 - responsible-gambling self-exclusion lists are honored, never overridden by the advisor
 - emergency manual override paths remain outside LLM control

@@ -1,0 +1,77 @@
+(ns wagering.sim
+  "Demo driver -- `clojure -M:dev:run`. Walks a clean wager through
+  intake -> jurisdiction gaming-license assessment -> patron
+  compliance screening -> wager-acceptance proposal (always escalates)
+  -> human approval -> commit, then through payout-settlement proposal
+  (always escalates) -> human approval -> commit, then shows four HARD
+  holds (a jurisdiction with no spec-basis, a claimed payout that
+  doesn't match stake times odds, an unresolved patron compliance
+  flag, and a double acceptance/settlement of an already-processed
+  wager) that never reach a human at all, and prints the audit ledger
+  + the draft wager-acceptance and payout-settlement records."
+  (:require [langgraph.graph :as g]
+            [wagering.store :as store]
+            [wagering.operation :as op]))
+
+(def operator {:actor-id "op-1" :actor-role :gaming-supervisor :phase 3})
+
+(defn- exec! [actor tid request context]
+  (g/run* actor {:request request :context context} {:thread-id tid}))
+
+(defn- approve! [actor tid]
+  (g/run* actor {:approval {:status :approved :by "op-1"}} {:thread-id tid :resume? true}))
+
+(defn -main [& _]
+  (let [db (store/seed-db)
+        actor (op/build db)]
+    (println "== wager/intake wager-1 (JPN, clean; stake 100 x odds 2.5 = claimed-payout 250.0) ==")
+    (println (exec! actor "t1" {:op :wager/intake :subject "wager-1"
+                                :patch {:id "wager-1" :patron "Sakura Tanaka"}} operator))
+
+    (println "== jurisdiction/assess wager-1 (escalates -- human approves) ==")
+    (println (exec! actor "t2" {:op :jurisdiction/assess :subject "wager-1"} operator))
+    (println (approve! actor "t2"))
+
+    (println "== patron/screen wager-1 (clean; escalates -- human approves) ==")
+    (println (exec! actor "t3" {:op :patron/screen :subject "wager-1"} operator))
+    (println (approve! actor "t3"))
+
+    (println "== wager/accept wager-1 (always escalates -- actuation/accept-wager) ==")
+    (let [r (exec! actor "t4" {:op :wager/accept :subject "wager-1"} operator)]
+      (println r)
+      (println "-- human gaming supervisor approves --")
+      (println (approve! actor "t4")))
+
+    (println "== payout/settle wager-1 (always escalates -- actuation/settle-payout) ==")
+    (let [r (exec! actor "t5" {:op :payout/settle :subject "wager-1"} operator)]
+      (println r)
+      (println "-- human gaming supervisor approves --")
+      (println (approve! actor "t5")))
+
+    (println "== jurisdiction/assess wager-2 (no spec-basis -> HARD hold) ==")
+    (println (exec! actor "t6" {:op :jurisdiction/assess :subject "wager-2" :no-spec? true} operator))
+
+    (println "== jurisdiction/assess wager-3 (escalates -- human approves; sets up the payout-mismatch test) ==")
+    (println (exec! actor "t7" {:op :jurisdiction/assess :subject "wager-3"} operator))
+    (println (approve! actor "t7"))
+
+    (println "== payout/settle wager-3 (claimed-payout 300.0 != stake 100 x odds 2.5 = 250.0 -> HARD hold) ==")
+    (println (exec! actor "t8" {:op :payout/settle :subject "wager-3"} operator))
+
+    (println "== patron/screen wager-4 (unresolved patron compliance flag -> HARD hold, never reaches a human) ==")
+    (println (exec! actor "t9" {:op :patron/screen :subject "wager-4"} operator))
+
+    (println "== wager/accept wager-1 AGAIN (double-acceptance -> HARD hold) ==")
+    (println (exec! actor "t10" {:op :wager/accept :subject "wager-1"} operator))
+
+    (println "== payout/settle wager-1 AGAIN (double-settlement -> HARD hold) ==")
+    (println (exec! actor "t11" {:op :payout/settle :subject "wager-1"} operator))
+
+    (println "== audit ledger ==")
+    (doseq [f (store/ledger db)] (println f))
+
+    (println "== draft wager-acceptance records ==")
+    (doseq [r (store/acceptance-history db)] (println r))
+
+    (println "== draft payout-settlement records ==")
+    (doseq [r (store/settlement-history db)] (println r))))
