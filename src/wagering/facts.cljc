@@ -102,6 +102,51 @@
           :required-evidence ["Patron age/ID verification record"
                               "Self-exclusion-registry check record"
                               "Wager-acceptance/payout-calculation documentation"
+                              "Gaming-license certificate"]}
+   ;; Malta -- verified 2026-07-23 directly against the Malta Gaming
+   ;; Authority's own site (mga.org.mt, reachable live, HTTP 200, no
+   ;; bot-detection challenge encountered). The Authority's own
+   ;; enforcement-register page states verbatim: "All Enforcement
+   ;; Actions taken by the Malta Gaming Authority in accordance with
+   ;; the Gaming Act (Cap. 583) and its relevant directives are listed
+   ;; here-under" -- confirming the Act name/chapter number directly
+   ;; from the regulator's own text. The MGA's own regulatory-framework
+   ;; page (mga.org.mt/our-work/regulatory-framework/, also reachable
+   ;; live) lists the Gaming Act's subsidiary legislation by name and
+   ;; S.L. (Subsidiary Legislation) number, confirmed directly:
+   ;; S.L. 583.05 "Gaming Authorisations Regulations" (licensing) and
+   ;; S.L. 583.08 "Gaming Player Protection Regulations" (the player-
+   ;; protection/self-exclusion regime). The MGA's own self-barring
+   ;; page (mga.org.mt/player-hub/self-barring/) independently confirms
+   ;; self-exclusion is a real, operative MGA scheme, own text (exact):
+   ;; "A self-exclusion is a tool which prevents players from gambling
+   ;; by blocking access to the gaming website which the player has
+   ;; excluded with."
+   ;; HONEST GAP: legislation.mt (Malta's official legislation portal,
+   ;; where the Act's own full text is hosted) is a JavaScript-rendered
+   ;; single-page application that returns the same client-side shell
+   ;; to a direct HTTP fetch regardless of URL path or Accept header --
+   ;; not a bot-detection challenge (no CAPTCHA, no challenge-page
+   ;; markers, no blocking status code; every request returned a plain
+   ;; HTTP 200), just a page that requires JS execution to render, which
+   ;; this session did not attempt to work around via browser automation.
+   ;; The page's own structured (JSON-LD) metadata was readable without
+   ;; JS and gives "legislationDate"/"dateCreated": "2018-05-24" for the
+   ;; Gaming Act -- cited below as the Authority's own metadata, not as
+   ;; independently-read enactment-clause text. A Wayback Machine lookup
+   ;; for this same URL returned an identical client-rendered shell (the
+   ;; snapshot itself preserved the same non-server-rendered page), so
+   ;; the fallback did not yield additional text either -- disclosed
+   ;; honestly rather than treated as equivalent to having read the
+   ;; Act's substantive articles.
+   "MLT" {:name "Malta"
+          :owner-authority "Malta Gaming Authority (MGA)"
+          :legal-basis "Gaming Act (Cap. 583 of the Laws of Malta) -- MGA's own text: \"the Malta Gaming Authority in accordance with the Gaming Act (Cap. 583)\"; per legislation.mt's own structured metadata, dateCreated/legislationDate 2018-05-24 (Act's own full commencement clause not independently read this session, see namespace docstring)"
+          :national-spec "S.L. 583.05 Gaming Authorisations Regulations (licensing) and S.L. 583.08 Gaming Player Protection Regulations (player protection / self-exclusion), both named directly on MGA's own regulatory-framework page"
+          :provenance "https://www.mga.org.mt/our-work/regulatory-framework/ ; https://www.mga.org.mt/player-hub/self-barring/"
+          :required-evidence ["Patron age/ID verification record"
+                              "Self-exclusion-registry check record"
+                              "Wager-acceptance/payout-calculation documentation"
                               "Gaming-license certificate"]}})
 
 (defn spec-basis
