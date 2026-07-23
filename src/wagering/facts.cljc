@@ -67,7 +67,42 @@
           :required-evidence ["Alters-/Identitätsprüfungsnachweis (patron age/ID verification record)"
                               "Spielersperrdatei-Prüfnachweis (self-exclusion-registry check record)"
                               "Einsatz-/Auszahlungsberechnungsdokumentation (wager-acceptance/payout-calculation documentation)"
-                              "Glücksspiellizenz (gaming-license certificate)"]}})
+                              "Glücksspiellizenz (gaming-license certificate)"]}
+   ;; Like the USA entry, a single representative regime rather than a
+   ;; state-by-state (here: statute-by-statute) survey -- Singapore's
+   ;; gambling-licensing framework is itself split across the Casino
+   ;; Control Act 2006 (casino licensing + the National Council on
+   ;; Problem Gambling's family-exclusion/self-exclusion regime, Part
+   ;; 10) and the separate Gambling Control Act 2022 (non-casino
+   ;; gambling services). This entry cites the Casino Control Act 2006
+   ;; because it is the one Act that carries BOTH halves of this
+   ;; catalog's narrow angle (gaming licensing, Part 3 ss.40-54; AND
+   ;; the patron self-exclusion registry, Part 10 s.165A/s.168) in a
+   ;; single statute -- verified 2026-07-23 directly against Singapore
+   ;; Statutes Online (sso.agc.gov.sg) via Internet Archive Wayback
+   ;; Machine snapshots (live sso.agc.gov.sg returned HTTP 403 to
+   ;; automated fetch; per this fleet's hard safety rule, that block
+   ;; was not bypassed -- the archived snapshots were used instead) and
+   ;; against gra.gov.sg directly (reachable live). The regulator was
+   ;; renamed from the Casino Regulatory Authority (CRA) to the
+   ;; Gambling Regulatory Authority of Singapore (GRA) with effect from
+   ;; 1 August 2022 under s.3 of the Gambling Regulatory Authority of
+   ;; Singapore Act 2022 (No. 14 of 2022) -- confirmed verbatim from the
+   ;; Casino Control Act 2006's own "Authority" definition (s.2(1), as
+   ;; at the 17 Jul 2024 SSO revision): "'Authority' means the Gambling
+   ;; Regulatory Authority of Singapore, which is the Casino Regulatory
+   ;; Authority of Singapore continued and renamed as the Gambling
+   ;; Regulatory Authority of Singapore under section 3 of the Gambling
+   ;; Regulatory Authority of Singapore Act 2022".
+   "SGP" {:name "Singapore"
+          :owner-authority "Gambling Regulatory Authority of Singapore (GRA)"
+          :legal-basis "Casino Control Act 2006"
+          :national-spec "Casino Control Act 2006 Part 3 (Licensing of Casinos, ss.40-54) and Part 10 (National Council on Problem Gambling: family exclusion orders, self-exclusion under s.165A, list of excluded persons under s.168)"
+          :provenance "https://www.gra.gov.sg/"
+          :required-evidence ["Patron age/ID verification record"
+                              "Self-exclusion-registry check record"
+                              "Wager-acceptance/payout-calculation documentation"
+                              "Gaming-license certificate"]}})
 
 (defn spec-basis
   "The jurisdiction's requirement map, or nil -- nil means NO spec-basis,

@@ -194,3 +194,32 @@ finding nothing to fix.
 | Invent a new arithmetic check shape for payout correctness rather than reusing the exact-match family | ❌ | Payout = stake x odds is genuinely the same "independently recompute and compare for equality" concept this fleet's apportionment/recovery/fee/order-value checks already establish -- inventing a superficially different shape for the same underlying concept would be artificial novelty, not a real contribution |
 | Model a full multi-leg/parlay/progressive-jackpot payout engine for conformance-test rigor | ❌ | Genuinely more complex real-world wagering-product logic that this R0 does not claim to model correctly -- honestly scoped to a single flat stake-times-odds payout instead, same as every sibling's "starting catalog, not exhaustive" posture |
 | Reference a capability lib (e.g. a hypothetical `kotoba-lang/gaming`) for consistency with most prior actors | ❌ | The blueprint itself explicitly states this vertical's records are practice-specific, not a shared cross-operator contract -- inventing a capability lib reference where the blueprint says none exists would misrepresent the domain, the same reasoning `6920`'s/`7120`'s/`8620`'s/`8530`'s ADRs already established |
+
+## Addendum (2026-07-23): Singapore (SGP) added to `wagering.facts/catalog`
+
+`wagering.facts/catalog` grows from 4 to 5 seeded jurisdictions (JPN,
+USA, GBR, DEU, **SGP**). Singapore's gambling-licensing framework is
+itself split across two 2022 statutes plus a 2006 one: the Casino
+Control Act 2006 (casino licensing, Part 3; and the National Council on
+Problem Gambling's family-exclusion/self-exclusion regime, Part 10) and
+the separate Gambling Control Act 2022 (non-casino gambling services),
+both now administered by the Gambling Regulatory Authority of Singapore
+(GRA) -- the Casino Regulatory Authority (CRA) continued and renamed as
+GRA with effect from 1 August 2022 under s.3 of the Gambling Regulatory
+Authority of Singapore Act 2022 (No. 14 of 2022). The SGP entry cites
+the Casino Control Act 2006 alone, the single statute that carries both
+halves of this catalog's narrow angle (gaming license + patron
+self-exclusion registry) -- the same "single representative regime"
+simplification the USA entry already establishes for a federated
+regulatory structure, rather than surveying all three Singapore statutes.
+
+Verification: live `sso.agc.gov.sg` (Singapore Statutes Online, the
+official statute database named in this task) returned HTTP 403 to
+automated fetch during this session; per this fleet's hard safety rule
+that block was not bypassed via browser automation or any other
+technique -- Internet Archive Wayback Machine snapshots of
+`sso.agc.gov.sg` (Casino Control Act 2006 as at 17 Jul 2024; Gambling
+Regulatory Authority of Singapore Act 2022 as at 17 Jul 2024) were used
+instead, cross-checked against the live, directly-reachable
+`gra.gov.sg`. See `wagering.facts/catalog`'s `"SGP"` entry comment for
+the verbatim quote and citation trail.
