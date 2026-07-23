@@ -11,6 +11,12 @@
   (is (string? (:provenance (facts/spec-basis "SGP"))))
   (is (= 4 (count (facts/evidence-checklist "SGP")))))
 
+(deftest mlt-has-a-spec-basis
+  (is (some? (facts/spec-basis "MLT")))
+  (is (string? (:provenance (facts/spec-basis "MLT"))))
+  (is (= 4 (count (facts/evidence-checklist "MLT"))))
+  (is (re-find #"Cap\. 583" (:legal-basis (facts/spec-basis "MLT")))))
+
 (deftest unknown-jurisdiction-has-no-fabricated-spec-basis
   (is (nil? (facts/spec-basis "ATL"))))
 
