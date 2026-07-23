@@ -191,7 +191,7 @@ flagship op already establishes.
 
 `wagering.facts/coverage` reports how many requested jurisdictions
 actually have an official spec-basis in `wagering.facts/catalog` --
-currently 4 seeded (JPN, USA, GBR, DEU) out of ~194 jurisdictions
+currently 5 seeded (JPN, USA, GBR, DEU, SGP) out of ~194 jurisdictions
 worldwide. This is a starting catalog to prove the governor contract
 end-to-end, not a claim of global coverage. Adding a jurisdiction is
 additive: one map entry in `wagering.facts/catalog`, citing a real

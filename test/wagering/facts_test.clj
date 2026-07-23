@@ -6,6 +6,11 @@
   (is (some? (facts/spec-basis "JPN")))
   (is (string? (:provenance (facts/spec-basis "JPN")))))
 
+(deftest sgp-has-a-spec-basis
+  (is (some? (facts/spec-basis "SGP")))
+  (is (string? (:provenance (facts/spec-basis "SGP"))))
+  (is (= 4 (count (facts/evidence-checklist "SGP")))))
+
 (deftest unknown-jurisdiction-has-no-fabricated-spec-basis
   (is (nil? (facts/spec-basis "ATL"))))
 
