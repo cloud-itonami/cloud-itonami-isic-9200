@@ -43,6 +43,30 @@
   (let [s (str n)]
     (str (apply str (repeat (max 0 (- w (count s))) "0")) s)))
 
+(def ^:private amount-scale
+  "Sub-minor-unit scale used when comparing two money amounts: 1/10000
+  of a unit. Coarser than double representation error by many orders of
+  magnitude, finer than any distinction a real money carries."
+  10000)
+
+(defn- money=
+  "Exact-at-money-precision equality for two amounts.
+
+  `==` on raw doubles is NOT the right comparison here: a product or sum
+  of decimal quantities is routinely not the double nearest the true
+  total, so a CORRECT claim compared false and an entity that was never
+  wrong was rejected. Measured across this fleet's recompute shapes,
+  20-27% of cent-denominated combinations failed while being right.
+
+  Rounding both sides to `amount-scale` before comparing removes the
+  representation error while preserving every distinction the value can
+  actually carry. A missing or non-numeric amount never matches:
+  un-verifiable is not the same as correct."
+  [x y]
+  (and (number? x) (number? y)
+       (= (Math/round (* amount-scale (double x)))
+          (Math/round (* amount-scale (double y))))))
+
 (defn compute-payout
   "The ground-truth payout owed for `wager`'s own `:stake-amount` and
   `:odds` -- see ns docstring for the honest simplification this makes
@@ -57,7 +81,7 @@
   wager's own permanent fields -- reuses this fleet's EXACT-MATCH
   independent-recompute family for a further domain."
   [{:keys [claimed-payout] :as wager}]
-  (== (double claimed-payout) (compute-payout wager)))
+  (money= claimed-payout (compute-payout wager)))
 
 (defn register-wager-acceptance
   "Validate + construct the WAGER-ACCEPTANCE registration DRAFT -- the
