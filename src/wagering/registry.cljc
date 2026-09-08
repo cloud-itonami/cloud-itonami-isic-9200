@@ -26,7 +26,7 @@
   operator would keep, not the act of accepting a wager or settling a
   payout itself (that is `wagering.operation`'s `:wager/accept`/
   `:payout/settle`, always human-gated -- see README `Actuation`)."
-  (:require [clojure.string :as str]))
+  (:require [kotoba.lang.text :as str]))
 
 (defn- unsigned-certificate
   "Every certificate this actor produces is UNSIGNED -- signature is the
@@ -97,7 +97,7 @@
     (throw (ex-info "wager-acceptance: jurisdiction required" {})))
   (when (< sequence 0)
     (throw (ex-info "wager-acceptance: sequence must be >= 0" {})))
-  (let [acceptance-number (str (str/upper-case jurisdiction) "-WGR-" (zero-pad sequence 6))
+  (let [acceptance-number (str (str/upper jurisdiction) "-WGR-" (zero-pad sequence 6))
         record {"record_id" acceptance-number
                 "kind" "wager-acceptance-draft"
                 "wager_id" wager-id
@@ -121,7 +121,7 @@
     (throw (ex-info "payout-settlement: jurisdiction required" {})))
   (when (< sequence 0)
     (throw (ex-info "payout-settlement: sequence must be >= 0" {})))
-  (let [settlement-number (str (str/upper-case jurisdiction) "-PAY-" (zero-pad sequence 6))
+  (let [settlement-number (str (str/upper jurisdiction) "-PAY-" (zero-pad sequence 6))
         record {"record_id" settlement-number
                 "kind" "payout-settlement-draft"
                 "wager_id" wager-id
