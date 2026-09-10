@@ -156,14 +156,14 @@ finding nothing to fix.
   genuinely different domain (leisure/recreation services, ISIC
   division 92) for the first time.
 - (+) The actuation invariant (governor + phase, two layers) is
-  regression-tested by `test/wagering/phase_test.clj`'s `wager-accept-
+  regression-tested by `test/wagering/phase_test.kotoba`'s `wager-accept-
   never-auto-at-any-phase`/`payout-settle-never-auto-at-any-phase`.
 - (+) `MemStore` ‖ `DatomicStore` parity is proven by `test/wagering/
   store_contract_test.clj`, the same `:db-api`-driven swap pattern
   every sibling actor uses.
 - (+) `payout-matches-claim?`/`payout-mismatch-violations` extends this
   fleet's exact-match-recompute family to a fifth domain instance,
-  regression-tested by `test/wagering/governor_contract_test.clj`'s
+  regression-tested by `test/wagering/governor_contract_test.kotoba`'s
   `payout-mismatch-is-held`.
 - (+) The dedicated-boolean double-actuation-guard lesson (from
   `6492`'s bug) has now been applied correctly BY DESIGN across a

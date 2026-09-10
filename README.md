@@ -73,7 +73,7 @@ enforce this (`wagering.governor`'s `:actuation/accept-wager`/
 `:actuation/settle-payout` high-stakes gate and `wagering.phase`'s
 phase table, which never puts `:wager/accept`/`:payout/settle` in any
 phase's `:auto` set) -- see `wagering.phase`'s docstring and
-`test/wagering/phase_test.clj`'s `wager-accept-never-auto-at-any-
+`test/wagering/phase_test.kotoba`'s `wager-accept-never-auto-at-any-
 phase`/`payout-settle-never-auto-at-any-phase`. The actor may draft,
 check and recommend; a human gaming supervisor is always the one who
 actually accepts a wager or settles a payout. Like `6512`/`6622`/
@@ -156,14 +156,14 @@ reference at all.
 
 | File | Role |
 |---|---|
-| `src/wagering/store.cljc` | **Store** protocol -- `MemStore` ‖ `DatomicStore` (`langchain.db`) + append-only audit ledger + separate wager-acceptance/payout-settlement history. No dynamically-filed sub-record -- both actuation ops act directly on a pre-seeded wager, and the double-acceptance/double-settlement guards check dedicated `:wager-accepted?`/`:payout-settled?` booleans rather than a `:status` value |
-| `src/wagering/registry.cljc` | Wager-acceptance + payout-settlement draft records, plus `compute-payout`/`payout-matches-claim?` -- an EXACT-MATCH independent recompute (claimed payout must equal stake x odds), reusing this fleet's established recompute family for a further domain |
-| `src/wagering/facts.cljc` | Per-jurisdiction gaming-licensing catalog with an official spec-basis citation per entry, honest coverage reporting |
-| `src/wagering/wageropsllm.cljc` | **WagerOps-LLM Advisor** -- `mock-advisor` ‖ `llm-advisor`; intake/assessment/patron-screening/wager-acceptance/payout-settlement proposals |
-| `src/wagering/governor.cljc` | **Responsible Gambling Governor** -- 4 HARD checks (spec-basis · evidence-incomplete · payout-mismatch, pure ground-truth exact-match recompute · patron-flag-unresolved, unconditional evaluation) + already-accepted/already-settled guards + 1 soft (confidence/actuation gate) |
-| `src/wagering/phase.cljc` | **Phase 0→3** -- read-only → assisted intake → assisted assess → supervised (wager/payout actuation always human; wager intake is the ONLY auto-eligible op, no direct capital risk) |
-| `src/wagering/operation.cljc` | **OperationActor** -- langgraph-clj StateGraph |
-| `src/wagering/sim.cljc` | demo driver |
+| `src/wagering/store.kotoba` | **Store** protocol -- `MemStore` ‖ `DatomicStore` (`langchain.db`) + append-only audit ledger + separate wager-acceptance/payout-settlement history. No dynamically-filed sub-record -- both actuation ops act directly on a pre-seeded wager, and the double-acceptance/double-settlement guards check dedicated `:wager-accepted?`/`:payout-settled?` booleans rather than a `:status` value |
+| `src/wagering/registry.kotoba` | Wager-acceptance + payout-settlement draft records, plus `compute-payout`/`payout-matches-claim?` -- an EXACT-MATCH independent recompute (claimed payout must equal stake x odds), reusing this fleet's established recompute family for a further domain |
+| `src/wagering/facts.kotoba` | Per-jurisdiction gaming-licensing catalog with an official spec-basis citation per entry, honest coverage reporting |
+| `src/wagering/wageropsllm.kotoba` | **WagerOps-LLM Advisor** -- `mock-advisor` ‖ `llm-advisor`; intake/assessment/patron-screening/wager-acceptance/payout-settlement proposals |
+| `src/wagering/governor.kotoba` | **Responsible Gambling Governor** -- 4 HARD checks (spec-basis · evidence-incomplete · payout-mismatch, pure ground-truth exact-match recompute · patron-flag-unresolved, unconditional evaluation) + already-accepted/already-settled guards + 1 soft (confidence/actuation gate) |
+| `src/wagering/phase.kotoba` | **Phase 0→3** -- read-only → assisted intake → assisted assess → supervised (wager/payout actuation always human; wager intake is the ONLY auto-eligible op, no direct capital risk) |
+| `src/wagering/operation.kotoba` | **OperationActor** -- langgraph-clj StateGraph |
+| `src/wagering/sim.kotoba` | demo driver |
 | `test/wagering/*_test.clj` | governor contract · phase invariants · store parity · registry conformance · facts coverage |
 
 ## Business-process coverage (honest)
