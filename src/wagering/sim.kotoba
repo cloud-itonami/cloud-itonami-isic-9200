@@ -1,5 +1,5 @@
 (ns wagering.sim
-  "Demo driver -- `clojure -M:dev:run`. Walks a clean wager through
+  "Demo driver -- `kbb -M:dev:run`. Walks a clean wager through
   intake -> jurisdiction gaming-license assessment -> patron
   compliance screening -> wager-acceptance proposal (always escalates)
   -> human approval -> commit, then through payout-settlement proposal

@@ -139,7 +139,7 @@ Like `7120`/`8620`/`8530` (and unlike `6492`'s status-lifecycle bug or
 demo-ledger verification all passed clean on the first run -- the
 dedicated-boolean guard design (Decision 6) and the exact-match
 recompute reuse (Decision 3) were both DELIBERATELY informed by prior
-builds' lessons before writing any code. The demo (`clojure -M:dev:run`)
+builds' lessons before writing any code. The demo (`kbb -M:dev:run`)
 was still independently verified against the printed audit ledger --
 basis tags `:no-spec-basis` · `:payout-mismatch` · `:patron-flag-
 unresolved` · `:already-accepted` · `:already-settled` all appear
